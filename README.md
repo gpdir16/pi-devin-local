@@ -1,3 +1,13 @@
+*<written_by_a_human>*
+
+**Warning: This is AI slop**
+
+- All code was written by AI.
+- All code has not been reviewed.
+- It has been confirmed to work, but there is no guarantee that everything functions properly.
+
+*</written_by_a_human>*
+
 # pi-devin-local
 
 Devin Local provider for [pi](https://pi.dev). Adds a `devin` provider that talks to Devin Local directly — no Devin CLI required.
