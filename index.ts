@@ -51,16 +51,9 @@ async function resolveApiKey(input: {
 }
 
 export default async function (pi: ExtensionAPI) {
-	const token = ambientToken();
-	let initialModels: Awaited<ReturnType<typeof fetchDevinCatalog>> = [];
-	if (token) {
-		try {
-			initialModels = await fetchDevinCatalog(token);
-		} catch {
-			initialModels = [];
-		}
-	}
-
+	// No blocking catalog fetch here: createProvider's refreshModels restores the
+	// persisted models-store synchronously at startup (allowNetwork:false) and the
+	// host's standard post-init refresh calls fetchModels when network is allowed.
 	pi.registerProvider(
 		createProvider({
 			id: PROVIDER_ID,
@@ -94,7 +87,7 @@ export default async function (pi: ExtensionAPI) {
 					},
 				},
 			},
-			models: initialModels,
+			models: [],
 			fetchModels: async (context) => {
 				const apiKey = tokenFromCredential(context.credential) || ambientToken();
 				if (!apiKey) throw new Error("No Devin credentials. Run /login devin.");
@@ -106,20 +99,4 @@ export default async function (pi: ExtensionAPI) {
 			},
 		}),
 	);
-
-	pi.registerCommand("devin-refresh", {
-		description: "Refresh the Devin Local model catalog",
-		handler: async (_args, ctx) => {
-			ctx.ui.notify("Refreshing Devin Local models\u2026", "info");
-			try {
-				const result = await ctx.modelRegistry.refresh({ providers: [PROVIDER_ID], force: true });
-				const error = result.errors.get(PROVIDER_ID);
-				if (error) throw error;
-				const count = ctx.modelRegistry.getAll().filter((model) => model.provider === PROVIDER_ID).length;
-				ctx.ui.notify(`Devin Local: loaded ${count} models from the live catalog.`, "info");
-			} catch (error) {
-				ctx.ui.notify(`Devin refresh failed: ${error instanceof Error ? error.message : String(error)}`, "error");
-			}
-		},
-	});
 }
