@@ -1,18 +1,18 @@
 # pi-devin-local
 
-Devin Local provider for [pi](https://pi.dev). It adds a `devin` provider that talks to Devin Local directly — no Devin CLI required.
+Devin Local provider for [pi](https://pi.dev). Adds a `devin` provider that talks to Devin Local directly — no Devin CLI required.
 
 - **Auth:** PKCE OAuth via `app.devin.ai` with a localhost callback (`/login devin`), or paste a session token.
-- **Models:** fetched live from `GetCliModelConfigs` — nothing is hardcoded.
+- **Models:** fetched live from `GetCliModelConfigs`. Nothing is hardcoded.
 - **Chat:** `GetChatMessage` (Connect/protobuf) streamed into pi's tools and UI.
 
 ## Install
 
 ```bash
-pi install git:github.com/<you>/pi-devin-local
+pi install git:github.com/gpdir16/pi-devin-local
 ```
 
-Then restart pi or run `/reload`.
+Restart pi or run `/reload`.
 
 ## Usage
 
@@ -22,7 +22,7 @@ Then restart pi or run `/reload`.
 /devin-refresh        # re-fetch the live model catalog
 ```
 
-Models are grouped by family. For example `devin/swe-2-high` is the SWE-2 family; switching the thinking level to `max` sends `swe-2-max` on the wire. Only levels the model supports are shown.
+Models are grouped by family. `devin/swe-2-high` is the SWE-2 family; switching the thinking level to `max` sends `swe-2-max` on the wire. Only levels the model supports are shown.
 
 ## Requirements
 
@@ -33,4 +33,4 @@ Models are grouped by family. For example `devin/swe-2-high` is the SWE-2 family
 ## Notes
 
 - Unofficial. Not affiliated with Cognition.
-- The catalog depends on your account's enabled models — it changes per account.
+- The catalog depends on your account's enabled models. It changes per account.
