@@ -1,0 +1,32 @@
+{
+  "name": "pi-devin-local",
+  "version": "0.1.0",
+  "description": "Devin Local provider for pi: PKCE OAuth + dynamic model catalog, no Devin CLI.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "devin",
+    "devin-local",
+    "cognition",
+    "custom-provider"
+  ],
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "files": [
+    "*.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
